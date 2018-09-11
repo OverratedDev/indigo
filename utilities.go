@@ -5,5 +5,5 @@ import (
 )
 
 func isWindows() bool {
-  return runtime.GOOS == "windows"
+    return runtime.GOOS == "windows"
 }
