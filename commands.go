@@ -1,28 +1,31 @@
 package main
 
 import (
-  "os"
-  "strings"
-  "fmt"
+	kingpin "gopkg.in/alecthomas/kingpin.v2"
+
+	"fmt"
+	"os"
 )
 
 func checkArgs() {
-    if len(os.Args) > 1 {
-        mainArg := strings.ToLower(os.Args[1])
+	switch kingpin.MustParse(app.Parse(os.Args[1:])) {
+	case start.FullCommand():
+		startProcess(*startFile, *startName)
+	case debug.FullCommand():
+		toggleDebug()
+	}
+}
 
-        if mainArg == "new" {
-            if len(os.Args) > 2 {
-                if fileExists(os.Args[2]) {
-                    fmt.Println("exists")
-                } else {
-                    fmt.Println("Failed to find file!")
-                }
-            } else {
-              fmt.Println("Invalid arguments! Missing FILENAME")
-            }
-        } else {
-            fmt.Println(help)
-            return
-        }
-    }
+func toggleDebug() {
+	/*if indigoDebug {
+		indigoDebug = false
+	} else {
+		indigoDebug = true
+	}*/
+
+	fmt.Println("Debug:", indigoDebug)
+}
+
+func startProcess(file string, name string) {
+
 }
