@@ -1,4 +1,4 @@
-package main
+package preparable
 
 import (
 	"os/exec"
