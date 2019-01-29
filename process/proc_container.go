@@ -5,6 +5,8 @@ import (
 	"os"
 	"strconv"
 	"syscall"
+
+	"github.com/vereas/indigo/utils"
 )
 
 type ProcContainer interface {
@@ -112,11 +114,11 @@ func (proc *Proc) Restart() error {
 
 func (proc *Proc) Delete() error {
 	proc.release()
-	err := DeleteFile(proc.Outfile)
+	err := utils.DeleteFile(proc.Outfile)
 	if err != nil {
 		return err
 	}
-	err = DeleteFile(proc.Errfile)
+	err = utils.DeleteFile(proc.Errfile)
 	if err != nil {
 		return err
 	}
@@ -139,7 +141,7 @@ func (proc *Proc) release() {
 	if proc.process != nil {
 		proc.process.Release()
 	}
-	DeleteFile(proc.Pidfile)
+	utils.DeleteFile(proc.Pidfile)
 }
 
 func (proc *Proc) NotifyStopped() {

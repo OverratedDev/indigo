@@ -3,11 +3,13 @@ package main
 import (
 	"os/exec"
 	"strings"
+
+	"github.com/vereas/indigo/process"
 )
 
 type ProcPreparable interface {
 	PrepareBin() ([]byte, error)
-	Start() (ProcContainer, error)
+	Start() (process.ProcContainer, error)
 	getPath() string
 	Identifier() string
 	getBinPath() string
@@ -42,7 +44,7 @@ func (preparable *Preparable) PrepareBin() ([]byte, error) {
 }
 
 func (preparable *Preparable) Start() (ProcContainer, error) {
-	proc := &Proc{
+	proc := &process.Proc{
 		Name:	   preparable.Name,
 		Cmd:       preparable.Cmd,
 		Args:      preparable.Args,
@@ -51,7 +53,7 @@ func (preparable *Preparable) Start() (ProcContainer, error) {
 		Outfile:   preparable.getOutPath(),
 		Errfile:   preparable.getErrPath(),
 		KeepAlive: preparable.KeepAlive,
-		Status:    &ProcStatus{},
+		Status:    &process.ProcStatus{},
 	}
 
 	err := proc.Start()

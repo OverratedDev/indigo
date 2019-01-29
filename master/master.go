@@ -2,6 +2,8 @@ package main
 
 import (
 	"sync"
+
+	"github.com/vereas/indigo/process"
 )
 
 type Master struct {
@@ -13,5 +15,5 @@ type Master struct {
 	ErrFile   string
 	Watcher   *Watcher
 
-	Procs map[string]ProcContainer
+	Procs map[string]process.ProcContainer
 }
