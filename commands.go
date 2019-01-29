@@ -18,9 +18,9 @@ func checkArgs() {
 
 func toggleDebug() {
 	/*if indigoDebug {
-		indigoDebug = false
+			indigoDebug = false
 	} else {
-		indigoDebug = true
+			indigoDebug = true
 	}*/
 
 	fmt.Println("Debug:", indigoDebug)
