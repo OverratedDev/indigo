@@ -49,11 +49,11 @@ type Proc struct {
 }
 
 func (proc *Proc) Start() error {
-	outFile, err := GetFile(proc.Outfile)
+	outFile, err := utils.GetFile(proc.Outfile)
 	if err != nil {
 		return err
 	}
-	errFile, err := GetFile(proc.Errfile)
+	errFile, err := utils.GetFile(proc.Errfile)
 	if err != nil {
 		return err
 	}
@@ -74,7 +74,7 @@ func (proc *Proc) Start() error {
 	}
 	proc.process = process
 	proc.Pid = proc.process.Pid
-	err = WriteFile(proc.Pidfile, []byte(strconv.Itoa(proc.process.Pid)))
+	err = utils.WriteFile(proc.Pidfile, []byte(strconv.Itoa(proc.process.Pid)))
 	if err != nil {
 		return err
 	}
