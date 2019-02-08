@@ -62,7 +62,10 @@ func (watcher *Watcher) AddProcWatcher(proc ProcContainer) {
 		defer delete(watcher.watchProcs, procWatcher.proc.Identifier())
 		select {
 		case procStatus := <-procWatcher.procStatus:
-			
+			log.Infof("Proc %s is dead, advising master...", procWatcher.proc.Identifier())
+			log.Infof("State is %s", procStatus.state.String())
+			watcher.restartProc <- procWatcher.proc
+			break
 		case <-procWatcher.stopWatcher:
 			break
 		}

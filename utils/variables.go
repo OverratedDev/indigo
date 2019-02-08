@@ -1,4 +1,4 @@
-package main
+package utils
 
 const version string = "0.1"
 
