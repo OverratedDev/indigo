@@ -1,10 +1,7 @@
 package utils
 
 import (
-	"os"
 	"strconv"
-	"io/ioutil"
-	"sync"
 )
 
 const (
@@ -18,11 +15,6 @@ const (
 	MB     = 1024 * KB
 	GB     = 1024 * MB
 )
-
-type FileMutex struct {
-	mutex *sync.Mutex
-	file  *os.File
-}
 
 func FormatUptime(startTime, currentTime int64) string {
 	val := currentTime - startTime
@@ -38,21 +30,4 @@ func FormatUptime(startTime, currentTime int64) string {
 		return strconv.Itoa(int(val/MONTH)) + "M"
 	}
 	return strconv.Itoa(int(val/YEAR)) + "y"
-}
-
-func WriteFile(filepath string, b []byte) error {
-	return ioutil.WriteFile(filepath, b, 0660)
-}
-
-func GetFile(filepath string) (*os.File, error) {
-	return os.OpenFile(filepath, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0777)
-}
-
-func DeleteFile(filepath string) error {
-	_, err := os.Stat(filepath)
-	if err != nil {
-		return err
-	}
-	err = os.Remove(filepath)
-	return err
 }
